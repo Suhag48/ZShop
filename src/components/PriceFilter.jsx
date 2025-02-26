@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { useContext } from "react";
-import myContext from "../context/MyContext";
+import myContext from "../context/myContext";
 
 const PriceFilter = () => {
   const {receivingMinPrice, receivingMaxPrice, handlePriceFilter, minPrice, maxPrice} = useContext(myContext)

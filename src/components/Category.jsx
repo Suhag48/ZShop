@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { ChevronUp, ChevronDown } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import myContext from "../context/MyContext";
+import myContext from "../context/myContext";
 
 const CategoryDropdown = ({
   type,

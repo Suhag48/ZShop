@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 
-import myContext from "../context/MyContext";
+import myContext from "../context/myContext";
 
 const TextFilter = () => {
   const {receivingSearchedText, searchedText, handleTextFilter} = useContext(myContext)
