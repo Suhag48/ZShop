@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import myContext from "./MyContext";
+import myContext from "./myContext";
 
 import { fetchProducts } from "../features/products/productsSlice";
 import { fetchCategory } from "../features/category/categorySlice";
