@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { Card, CardContent } from "@/components/ui/card";
 
-import myContext from "../context/MyContext";
+import myContext from "../context/myContext";
 
 const Products = () => {
   const {

@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-import myContext from "../context/MyContext";
+import myContext from "../context/myContext";
 
 const Brands = () => {
   const { products, gettingSelectedBrand } = useContext(myContext);
