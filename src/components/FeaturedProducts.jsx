@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import myContext from "../context/MyContext";
+import myContext from "../context/myContext";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
