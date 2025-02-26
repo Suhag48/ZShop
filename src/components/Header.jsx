@@ -4,9 +4,9 @@ import { Mail, Menu, Phone, ShoppingCart } from "lucide-react";
 
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
+// import { Switch } from "@/components/ui/switch";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import myContext from "../context/MyContext";
+import myContext from "../context/myContext";
 
 const Header = () => {
   const isLoggedIn = false;
