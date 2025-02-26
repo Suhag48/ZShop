@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import {
   ChevronRight,
   Heart,
-  LeafyGreen,
   Share2,
   ShoppingCart,
   Star,

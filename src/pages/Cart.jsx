@@ -13,11 +13,10 @@ import { removeFromCart } from "../features/cart/cartSlice";
 import { decreaseCart } from "../features/cart/cartSlice";
 import { increaseCart } from "../features/cart/cartSlice";
 import { checkOut } from "../features/cart/cartSlice";
-import myContext from "../context/MyContext";
+import myContext from "./myContext";
 
 const Cart = () => {
   const [coupon, setCoupon] = useState("");
-  console.log(coupon);
 
   const { cartTotalAmount } = useContext(myContext);
 
