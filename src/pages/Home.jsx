@@ -30,7 +30,7 @@ const Home = () => {
           <Slide />
           <MobileFilter />
           <Products />
-          <div className="sm:absolute mx-auto bottom-0 right-0 left-0">
+          <div className="absolute mx-auto bottom-[-30px] right-0 left-0">
             <Paging />
           </div>
         </div>

@@ -59,7 +59,7 @@ const Category = () => {
   return (
     <Card className="border-2">
       <CardHeader>
-        <CardTitle className="mb-2">Category</CardTitle>
+        <CardTitle className="mb-2 text-xl lg:text-2xl">Category</CardTitle>
         <Separator />
       </CardHeader>
       <CardContent>

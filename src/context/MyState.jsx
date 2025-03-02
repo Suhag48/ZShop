@@ -49,7 +49,7 @@ const MyState = ({ children }) => {
 
 //pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 40;
+  const itemsPerPage = 50;
   const lastIndex = currentPage * itemsPerPage;
   const firstIndex = lastIndex - itemsPerPage;
   const pagingProducts = products.slice(firstIndex, lastIndex);

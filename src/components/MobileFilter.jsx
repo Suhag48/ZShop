@@ -21,7 +21,7 @@ const MobileFilter = () => {
   return (
     <section className="mt-20 bg-gray-300 py-10 md:hidden">
       {/* search by category */}
-      <div className="flex flex-col w-2/3 mx-auto gap-4 relative">
+      <div className="flex flex-col w-2/3 sm:w-1/3 mx-auto gap-y-6 relative">
         <div>
           <select
             onChange={(e) => filterByMobileCategory(e.target.value)}
@@ -38,7 +38,7 @@ const MobileFilter = () => {
         </div>
 
         {/* search by product name */}
-        <div className="flex gap-x-4">
+        <div className="flex flex-col gap-y-3">
           <Input
             type="text"
             value={searchedText}
@@ -51,12 +51,12 @@ const MobileFilter = () => {
             className="bg-white"
             onClick={handleTextFilter}
           >
-            search
+            Search Product
           </Button>
         </div>
 
         {/* search by price */}
-        <div className="flex gap-x-2">
+        <div className="flex flex-col gap-y-3">
           <Input
             type="number"
             value={minPrice}
@@ -73,10 +73,10 @@ const MobileFilter = () => {
           />
           <Button
             variant="outline"
-            className="bg-white ml-2"
+            className="bg-white"
             onClick={handlePriceFilter}
           >
-            search
+            Filter Product
           </Button>
         </div>
       </div>

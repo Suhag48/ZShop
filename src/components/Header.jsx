@@ -114,25 +114,30 @@ const Header = () => {
           <SheetTrigger>
             <Menu />
           </SheetTrigger>
-          <div className="flex items-center space-x-8">
+          <div className="flex items-center gap-x-6">
             {isLoggedIn ? (
               <div>
                 hello, <span>{user}</span>
               </div>
             ) : (
-              <div className="flex gap-x-6">
+              <div className="flex gap-x-4">
                 <Button variant="link" className="p-0 h-0">
                   <NavLink
                     to="/login"
-                    className={({ isActive }) => (isActive ? "underline" : "")}
+                    className={({ isActive }) =>
+                      `text-sm sm:text-base ${isActive ? "underline" : ""}`
+                    }
                   >
                     Login
                   </NavLink>
                 </Button>
+
                 <Button variant="link" className="p-0 h-0">
                   <NavLink
                     to="/register"
-                    className={({ isActive }) => (isActive ? "underline" : "")}
+                    className={({ isActive }) =>
+                      `text-sm sm:text-base ${isActive ? "underline" : ""}`
+                    }
                   >
                     Register
                   </NavLink>
@@ -143,10 +148,10 @@ const Header = () => {
             <Link to="/cart" className="flex items-center text-sm">
               <ShoppingCart size={16} />
               <span className="mt-[-26px] text-red-500">
-                {" "}
-                {cartTotalQuantity}{" "}
+                {cartTotalQuantity}
               </span>
             </Link>
+
           </div>
           <SheetContent side="left">
             <div className="text-xl font-medium my-14">

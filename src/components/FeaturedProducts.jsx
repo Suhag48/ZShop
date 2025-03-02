@@ -10,7 +10,7 @@ const FeaturedProducts = () => {
   return (
     <Card className="w-full border-2">
       <CardHeader>
-        <CardTitle className="mb-2">Featured Products</CardTitle>
+        <CardTitle className="mb-2 text-xl lg:text-2xl">Featured Products</CardTitle>
         <Separator />
       </CardHeader>
       <CardContent className="flex flex-col">

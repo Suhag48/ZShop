@@ -6,9 +6,9 @@ import paypal from "../assets/payment-methods/paypal.png"
 
 const Footer = () => {
   return (
-    <footer className="px-4 md:px-12 lg:px-28 bg-gray-100">
+    <footer className="px-4 md:px-12 lg:px-28 bg-gray-100 mt-[30px]">
       <Separator/>
-      <div className="flex justify-between mx-auto flex-wrap py-12">
+      <div className="flex justify-between mx-auto flex-wrap gap-4 py-12">
         <div className="hidden md:flex flex-col">
           <Link
             to="/"
@@ -22,7 +22,7 @@ const Footer = () => {
           <h2 className="md:text-lg font-medium">
             About
           </h2>
-          <div className="flex flex-col gap-1 mt-4">
+          <div className="flex flex-col gap-2 mt-4 text-sm sm:text-base">
             <Link className="hover:underline">Our Story</Link>
             <Link className="hover:underline">Team</Link>
             <Link className="hover:underline">Privacy Policy</Link>
@@ -31,7 +31,7 @@ const Footer = () => {
         </div>
         <div className="flex flex-col">
           <h2 className="md:text-lg font-medium">Category</h2>
-          <div className="flex flex-col gap-2 mt-4">
+          <div className="flex flex-col gap-2 mt-4 text-sm sm:text-base">
             <Link to="/contact" className="hover:underline">Contact Us</Link>
             <Link className="hover:underline">FAQ</Link>
           </div>
@@ -40,7 +40,7 @@ const Footer = () => {
           <h2 className="md:text-lg font-medium">
             Payment Method
           </h2>
-          <img src={paypal} alt="payment method" className="w-24 h-12 mt-4" />
+          <img src={paypal} alt="payment method" className="w-20 h-10 sm:w-24 sm:h-12 mt-4" />
         </div>
       </div>
     </footer>

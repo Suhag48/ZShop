@@ -32,7 +32,7 @@ const Brands = () => {
   return (
     <Card className="border-2">
       <CardHeader>
-        <CardTitle className="mb-2">Brands</CardTitle>
+        <CardTitle className="mb-2 text-xl lg:text-2xl">Brands</CardTitle>
         <Separator />
       </CardHeader>
       <CardContent>
