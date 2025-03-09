@@ -22,7 +22,7 @@ const Products = () => {
   }, [selectedCategory]);
 
   return (
-    <section className="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-6 py-12 md:py-20">
+    <section className="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-6 pb-12 pt-8 md:pb-20 md:pt-16">
       {!isError && allProducts.length > 0 ? (
         allProducts.map((product) => {
           const { id, thumbnail, title, price, discountPercentage } = product;
