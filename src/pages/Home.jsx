@@ -14,7 +14,7 @@ import TopSellingProducts from "../components/TopSellingProducts";
 const Home = () => {
   return (
     <Layout>
-      <section className="px-4 md:px-12 lg:px-28 mx-auto md:grid grid-cols-4 gap-x-4 md:gap-x-6 xl:gap-x-8 py-12 md:py-20">
+      <section className="px-2 sm:px-4 md:px-12 lg:px-28 mx-auto md:grid grid-cols-4 gap-x-4 md:gap-x-6 xl:gap-x-8 py-12 md:py-20">
         {/* left sidebar */}
         <div className="md:flex flex-col gap-y-8 col-span-1 hidden">
           <Category />

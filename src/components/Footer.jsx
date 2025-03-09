@@ -1,13 +1,20 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import { Separator } from "@/components/ui/separator";
 
 import paypal from "../assets/payment-methods/paypal.png"
+import myContext from "../context/myContext";
 
 const Footer = () => {
+  const {mode} = useContext(myContext);
+
   return (
-    <footer className="px-4 md:px-12 lg:px-28 bg-gray-100 mt-[30px]">
-      <Separator/>
+    <footer className="px-4 md:px-12 lg:px-28 bg-gray-100 mt-[30px]" style={{
+      backgroundColor: mode === "dark" ? "rgb(40, 44, 52)" : "",
+      color: mode === "dark" ? "white" : "",
+    }}>
+      <Separator className={`${mode === "dark" ? "hidden" : ""}`} />
       <div className="flex justify-between mx-auto flex-wrap gap-4 py-12">
         <div className="hidden md:flex flex-col">
           <Link

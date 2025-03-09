@@ -18,7 +18,7 @@ import myContext from "../context/myContext"
 const Cart = () => {
   const [coupon, setCoupon] = useState("");
 
-  const { cartTotalAmount } = useContext(myContext);
+  const { cartTotalAmount, mode } = useContext(myContext);
 
   const cart = useSelector((state) => state.cartR);
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ const Cart = () => {
   return (
     <Layout>
       <section className="py-12 md:py-20 px-4 md:px-12 lg:px-28">
-        <h2 className="text-center font-semibold text-2xl">Shopping Cart</h2>
+        <h2 className="text-center font-semibold text-2xl" style={{ color: mode === "dark" ? "white" : "black" }}>Shopping Cart</h2>
         <Card className="flex flex-col md:flex-row mx-auto justify-between md:space-x-4 lg:space-x-8 xl:space-x-10 mt-12 p-4 lg:p-8 shadow">
           <div className="flex flex-col gap-3 w-full">
             {!cartItems.length ? (

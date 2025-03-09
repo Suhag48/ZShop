@@ -10,7 +10,7 @@ const PriceFilter = () => {
   return (
     <Card className="border-2">
       <CardHeader>
-        <CardTitle className="mb-2 text-xl lg:text-2xl">Price Filter</CardTitle>
+        <CardTitle className="mb-2 text-xl">Price Filter</CardTitle>
         <Separator />
       </CardHeader>
       <CardContent>

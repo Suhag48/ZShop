@@ -13,6 +13,7 @@ const MyState = ({ children }) => {
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  const [mode, setMode] = useState("light");
 
   const dispatch = useDispatch();
 
@@ -26,6 +27,17 @@ const MyState = ({ children }) => {
   useEffect(() => {
     dispatch(getTotal());
   }, [cart, dispatch]);
+
+  // handle dark mode
+  const toggleMode = () => {
+    if (mode === "light") {
+      setMode("dark");
+      document.body.style.backgroundColor = "rgb(17, 24, 39)";
+    } else {
+      setMode("light");
+      document.body.style.backgroundColor = "white";
+    }
+  };
 
   // filtered by text
   const receivingSearchedText = (text) => {
@@ -47,7 +59,7 @@ const MyState = ({ children }) => {
 
   const { category } = useSelector((state) => state.categoryR);
 
-//pagination
+  //pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 50;
   const lastIndex = currentPage * itemsPerPage;
@@ -147,6 +159,8 @@ const MyState = ({ children }) => {
         handlePriceFilter,
         minPrice,
         maxPrice,
+        mode,
+        toggleMode,
       }}
     >
       {children}

@@ -7,13 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 
-import {
-  ChevronRight,
-  Heart,
-  Share2,
-  ShoppingCart,
-  Star,
-} from "lucide-react";
+import { ChevronRight, Heart, Share2, ShoppingCart, Star } from "lucide-react";
 
 // import img from "../assets/images/10.jpg";
 
@@ -42,21 +36,22 @@ const SingleProduct = () => {
     title,
     price,
     description,
-    brand,
     category,
     dimensions,
     discountPercentage,
     images,
     rating,
-    returnPolicy,
     stock,
     tags,
     warrantyInformation,
-    weight,
     thumbnail,
   } = singleProduct;
 
-  const [mainImage, setMainImage] = useState(thumbnail);
+  const [mainImage, setMainImage] = useState();
+
+  const setImage = (img) => {
+    setMainImage(img);
+  };
 
   // discount price
   const mainPrice = price - (price * discountPercentage) / 100;
@@ -72,20 +67,20 @@ const SingleProduct = () => {
         <Card className="flex mx-auto space-x-20 p-6 lg:w-4/5 border-2 shadow">
           <div className="w-2/5">
             <img
-              src={mainImage}
+              src={mainImage || thumbnail}
               alt={title?.slice(0, 10)}
               className="h-60 w-80 shadow-md"
             />
 
             <div className="flex gap-x-4 mt-10">
-              {images?.map((img, index) => {
+              {images?.slice(0, 3).map((img, index) => {
                 return (
                   <img
                     key={index}
                     src={img}
                     alt={title?.slice(0, 10)}
                     className="w-24 h-20 cursor-pointer"
-                    onClick={() => setMainImage(img)}
+                    onClick={() => setImage(img)}
                   />
                 );
               })}

@@ -4,39 +4,43 @@ import { Mail, Menu, Phone, ShoppingCart } from "lucide-react";
 
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-// import { Switch } from "@/components/ui/switch";
+import { Switch } from "@/components/ui/switch";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+
 import myContext from "../context/myContext";
 
 const Header = () => {
   const isLoggedIn = false;
   const user = "Suhag";
 
-  const { cartTotalQuantity } = useContext(myContext);
+  const { cartTotalQuantity, toggleMode, mode } = useContext(myContext);
 
   return (
-    <header className="bg-gray-100 px-4 md:px-12 lg:px-28">
+    <header className="px-4 md:px-12 lg:px-28" style={{
+      backgroundColor: mode === "dark" ? "rgb(40, 44, 52)" : "",
+      color: mode === "dark" ? "white" : "black",  // Text color based on mode
+    }}>
       {/* top header */}
       <div className="hidden md:flex justify-between text-base py-3">
-        <div className="flex gap-x-12">
+        <div className="flex gap-x-8 lg:gap-x-12">
           <div className="flex items-center gap-x-2">
             <Phone size={16} />
-            <span>+88 01866768193</span>
+            <span style={{ color: mode === "dark" ? "white" : "black" }}>+88 01866768193</span>
           </div>
           <div className="flex items-center gap-x-2">
             <Mail size={16} />
-            <span>suhagrana.q@gmail.com</span>
+            <span style={{ color: mode === "dark" ? "white" : "black" }}>suhagrana.q@gmail.com</span>
           </div>
         </div>
 
-        <div className="flex gap-x-12">
+        <div className="flex gap-x-2 lg:gap-x-12">
           <div className="flex items-center space-x-2">
-            {/* <Switch id="darkmode-toggle" size={18} /> */}
+            <Switch id="darkmode-toggle" size={18} onClick={toggleMode} />
           </div>
-          <div>whatsapp: +8801607010719</div>
+          <div style={{ color: mode === "dark" ? "white" : "black" }}>whatsapp: +8801607010719</div>
         </div>
       </div>
-      <Separator />
+      <Separator className={`${mode === "dark" ? "hidden" : ""}`} />
 
       {/* desktop header */}
       <div className="hidden md:flex justify-between items-center h-20">
@@ -50,6 +54,7 @@ const Header = () => {
             <NavLink
               to="/"
               className={({ isActive }) => (isActive ? "underline" : "")}
+              style={{ color: mode === "dark" ? "white" : "black" }}
             >
               Home
             </NavLink>
@@ -58,6 +63,7 @@ const Header = () => {
             <NavLink
               to="/about"
               className={({ isActive }) => (isActive ? "underline" : "")}
+              style={{ color: mode === "dark" ? "white" : "black" }}
             >
               About
             </NavLink>
@@ -66,6 +72,7 @@ const Header = () => {
             <NavLink
               to="/contact"
               className={({ isActive }) => (isActive ? "underline" : "")}
+              style={{ color: mode === "dark" ? "white" : "black" }}
             >
               Contact
             </NavLink>
@@ -73,8 +80,8 @@ const Header = () => {
         </nav>
         <div className="flex items-center space-x-8">
           {isLoggedIn ? (
-            <div>
-              hello, <span>{user}</span>
+            <div style={{ color: mode === "dark" ? "white" : "black" }}>
+              hello, <span className="font-medium">{user}</span>
             </div>
           ) : (
             <div className="flex gap-x-6">
@@ -82,6 +89,7 @@ const Header = () => {
                 <NavLink
                   to="/login"
                   className={({ isActive }) => (isActive ? "underline" : "")}
+                  style={{ color: mode === "dark" ? "white" : "black" }}
                 >
                   Login
                 </NavLink>
@@ -90,6 +98,7 @@ const Header = () => {
                 <NavLink
                   to="/register"
                   className={({ isActive }) => (isActive ? "underline" : "")}
+                  style={{ color: mode === "dark" ? "white" : "black" }}
                 >
                   Register
                 </NavLink>
@@ -100,13 +109,12 @@ const Header = () => {
           <Link to="/cart" className="flex items-center text-sm">
             <ShoppingCart size={20} />
             <span className="mt-[-26px] text-red-500">
-              {" "}
-              {cartTotalQuantity}{" "}
+              {" "}{cartTotalQuantity}{" "}
             </span>
           </Link>
         </div>
       </div>
-      <Separator />
+      <Separator className={`${mode === "dark" ? "hidden" : ""}`} />
 
       {/* mobile header */}
       <div className="md:hidden flex justify-between py-4">
@@ -116,7 +124,7 @@ const Header = () => {
           </SheetTrigger>
           <div className="flex items-center gap-x-6">
             {isLoggedIn ? (
-              <div>
+              <div style={{ color: mode === "dark" ? "white" : "black" }}>
                 hello, <span>{user}</span>
               </div>
             ) : (
@@ -127,6 +135,7 @@ const Header = () => {
                     className={({ isActive }) =>
                       `text-sm sm:text-base ${isActive ? "underline" : ""}`
                     }
+                    style={{ color: mode === "dark" ? "white" : "black" }}
                   >
                     Login
                   </NavLink>
@@ -138,6 +147,7 @@ const Header = () => {
                     className={({ isActive }) =>
                       `text-sm sm:text-base ${isActive ? "underline" : ""}`
                     }
+                    style={{ color: mode === "dark" ? "white" : "black" }}
                   >
                     Register
                   </NavLink>
@@ -151,7 +161,6 @@ const Header = () => {
                 {cartTotalQuantity}
               </span>
             </Link>
-
           </div>
           <SheetContent side="left">
             <div className="text-xl font-medium my-14">
@@ -163,18 +172,21 @@ const Header = () => {
               <NavLink
                 to="/"
                 className={({ isActive }) => (isActive ? "underline" : "")}
+                style={{ color: mode === "dark" ? "white" : "black" }}
               >
                 Home
               </NavLink>
               <NavLink
                 to="/about"
                 className={({ isActive }) => (isActive ? "underline" : "")}
+                style={{ color: mode === "dark" ? "white" : "black" }}
               >
                 About
               </NavLink>
               <NavLink
                 to="/contact"
                 className={({ isActive }) => (isActive ? "underline" : "")}
+                style={{ color: mode === "dark" ? "white" : "black" }}
               >
                 Contact
               </NavLink>
