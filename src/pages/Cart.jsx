@@ -13,12 +13,16 @@ import { removeFromCart } from "../features/cart/cartSlice";
 import { decreaseCart } from "../features/cart/cartSlice";
 import { increaseCart } from "../features/cart/cartSlice";
 import { checkOut } from "../features/cart/cartSlice";
-import myContext from "../context/myContext"
+import myContext from "../context/myContext";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../firebaseAuth/Auth";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const [coupon, setCoupon] = useState("");
 
-  const { cartTotalAmount, mode } = useContext(myContext);
+  const { cartTotalAmount, mode, user, userData } = useContext(myContext);
 
   const cart = useSelector((state) => state.cartR);
   const dispatch = useDispatch();
@@ -26,6 +30,8 @@ const Cart = () => {
   const { cartItems, message } = cart;
 
   const shippingCharge = 10;
+
+  const navigate = useNavigate()
 
   const handleRemoveFromCart = (cartItem) => {
     dispatch(removeFromCart(cartItem));
@@ -43,10 +49,60 @@ const Cart = () => {
     dispatch(checkOut(couponCode));
   };
 
+  const order = {
+    user: user,
+    products: cartItems,
+    total: cartTotalAmount,
+  };
+  
+  const onOrder = async () => {
+    try {
+      if(!userData){
+        navigate("/userDashboard/profile")
+        toast.warning("Add your details first!")
+      }
+      else if (order.products && order.products.length > 0) {
+        // Loop through each product in the cart
+        const productsList = order.products.map((item) => ({
+          productId: item.id,
+          productTitle: item.title,
+          photo: item.thumbnail,
+          quantity: item.cartQuantity,
+          price: item.price,
+        }));
+  
+        // Add the order to Firestore
+        await addDoc(collection(db, "Orders"), {
+          orderFrom: {
+            name: order.user.displayName,
+            email: order.user.email,
+            phone: userData.phone, // You might want to collect and pass the phone and address if needed
+            address: userData.address,
+          },
+          products: productsList, // Array of products
+          totalPrice: order.total, // Total price of the order
+        });
+  
+        toast.success("Order placed successfully!");
+      } else {
+        toast.error("Your cart is empty.");
+      }
+    } catch (error) {
+      console.log("Error placing order: ", error);
+      toast.error("Error placing order: " + error.message);
+    }
+  };
+  
+
   return (
     <Layout>
       <section className="py-12 md:py-20 px-4 md:px-12 lg:px-28">
-        <h2 className="text-center font-semibold text-2xl" style={{ color: mode === "dark" ? "white" : "black" }}>Shopping Cart</h2>
+        <h2
+          className="text-center font-semibold text-2xl"
+          style={{ color: mode === "dark" ? "white" : "black" }}
+        >
+          Shopping Cart
+        </h2>
         <Card className="flex flex-col md:flex-row mx-auto justify-between md:space-x-4 lg:space-x-8 xl:space-x-10 mt-12 p-4 lg:p-8 shadow">
           <div className="flex flex-col gap-3 w-full">
             {!cartItems.length ? (
@@ -55,7 +111,7 @@ const Cart = () => {
               cartItems?.map((cartItem) => (
                 <Card
                   key={cartItem.id}
-                  className="py-2 flex justify-between items-center px-2 lg:px-4 bg-neutral-100"
+                  className="py-2 flex justify-between items-center px-2 lg:px-4"
                 >
                   <div className="flex items-center gap-4 md:gap-2 lg:gap-8 w-1/3">
                     <img
@@ -65,7 +121,7 @@ const Cart = () => {
                     />
                     <div>
                       <p className="text-sm">{cartItem.category}</p>
-                      <CardTitle className="text-base">
+                      <CardTitle className="text-sm">
                         {cartItem.title}
                       </CardTitle>
                       <button
@@ -152,6 +208,14 @@ const Cart = () => {
                 className="w-full mt-4"
               >
                 Checkout
+              </Button>
+
+              <Button
+                onClick={onOrder}
+                variant="outline"
+                className="w-full mt-6"
+              >
+                Order Now
               </Button>
             </div>
           </Card>

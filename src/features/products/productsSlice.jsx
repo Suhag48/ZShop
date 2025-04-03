@@ -18,7 +18,17 @@ export const fetchProducts = createAsyncThunk(
 export const productsSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {},
+  reducers: {
+    updateProduct: (state, action) => {
+      const index = state.products.findIndex((product) => product.id === action.payload.id);
+      if (index !== -1) {
+        state.products[index] = action.payload;  // Mutating directly
+      }
+    },
+    deleteProduct: (state, action) => {
+      state.products = state.products.filter((product) => product.id !== action.payload);
+    }
+  },
 
   extraReducers: (builder) => {
     builder
@@ -37,4 +47,5 @@ export const productsSlice = createSlice({
   },
 });
 
+export const { updateProduct, deleteProduct } = productsSlice.actions;
 export default productsSlice.reducer;

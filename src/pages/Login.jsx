@@ -1,7 +1,11 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebaseAuth/Auth"; // Ensure you have the correct path for auth
+import { toast } from "react-toastify";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,6 +30,9 @@ const schema = yup.object().shape({
 });
 
 const Login = () => {
+  const [error, setError] = useState(""); // State for capturing authentication errors
+  const navigate = useNavigate();
+
   // Use React Hook Form with Yup schema validation
   const {
     register,
@@ -34,8 +41,27 @@ const Login = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   // Handle form submission
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      const userInfo = await signInWithEmailAndPassword(auth, data.email, data.password);
+      toast.success("Login successful!");
+
+      // storing user info in local storage
+      localStorage.setItem("userInfo", JSON.stringify(userInfo.user));
+
+      // Redirect after successful login
+      setTimeout(() => {
+        navigate("/");
+      }, 4000);
+    } catch (error) {
+      if (error.code === "auth/invalid-credential") {
+        setError("incorrect email or password!");
+      } else if (error.code === "auth/user-not-found") {
+        setError("user not found!");
+      } else if (error.code === "auth/wrong-password") {
+        setError("incorrect password!");
+      }
+    }
   };
 
   return (
@@ -75,6 +101,10 @@ const Login = () => {
                 <p className="text-red-500 text-sm">
                   {errors.password.message}
                 </p>
+              )}
+
+              {error && (
+                <p className="text-red-500 text-sm italic ml-2">{error}</p>
               )}
 
               <Button

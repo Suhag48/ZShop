@@ -15,7 +15,7 @@ const Products = () => {
   } = useContext(myContext);
 
   const allProducts =
-    filteredProducts.length > 0 ? filteredProducts : pagingProducts;
+    filteredProducts.length > 0 ? filteredProducts.slice(0,45) : pagingProducts;
 
   useEffect(() => {
     filteredByCategory();

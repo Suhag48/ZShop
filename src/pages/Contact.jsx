@@ -1,6 +1,10 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+
+import { db } from "../firebaseAuth/Auth";
+import { collection, addDoc } from "firebase/firestore";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,13 +17,14 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 import Layout from "../components/layout/Layout";
+import { toast } from "react-toastify";
 
 // Define the validation schema using Yup
 const schema = yup.object().shape({
   name: yup
     .string()
     .min(4, "Name must be at least 4 characters!")
-    .max(8, "Name must not exceed 100 characters!")
+    .max(10, "Name must not exceed 10 characters!")
     .required("Name is required!"),
   email: yup
     .string()
@@ -40,14 +45,27 @@ const Contact = () => {
   const {
     register,
     handleSubmit,
+    reset, // To reset form on success
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   // Handle form submission
-  const onSubmit = (data) => {
-    console.log(data); // Submit the form data
+  const onSubmit = async (data) => {
+    try {
+      // Add contact data to Firestore
+      await addDoc(collection(db, "messages"), {
+        name: data.name,
+        email: data.email,
+        subject: data.subject,
+        message: data.message,
+      });
+      toast.success("Message sent successfully!");
+      reset();
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -68,7 +86,7 @@ const Contact = () => {
           <Card className="w-full lg:w-[70%] h-auto bg-gray-100">
             <CardHeader className="text-center">
               <CardTitle>Contact us</CardTitle>
-              <CardDescription>Tell us your issues.</CardDescription>
+              <CardDescription>tell us your issues.</CardDescription>
             </CardHeader>
             <CardContent>
               <form

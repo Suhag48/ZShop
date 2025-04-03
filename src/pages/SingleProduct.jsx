@@ -64,15 +64,15 @@ const SingleProduct = () => {
   return (
     <Layout>
       <section className="py-12 md:py-20 px-4 mx-auto">
-        <Card className="flex mx-auto space-x-20 p-6 lg:w-4/5 border-2 shadow">
-          <div className="w-2/5">
+        <Card className="flex flex-col lg:flex-row mx-auto space-x-20 p-6 sm:w-4/5 border-2 shadow">
+          <div className="lg:w-2/5 flex flex-col items-center lg:items-start mb-12 lg:mb-0">
             <img
               src={mainImage || thumbnail}
               alt={title?.slice(0, 10)}
               className="h-60 w-80 shadow-md"
             />
 
-            <div className="flex gap-x-4 mt-10">
+            <div className="flex gap-x-4 mt-4 lg:mt-10">
               {images?.slice(0, 3).map((img, index) => {
                 return (
                   <img
@@ -90,7 +90,7 @@ const SingleProduct = () => {
             </div>
           </div>
 
-          <CardContent className="border p-4 w-3/5">
+          <CardContent className="border p-4 lg:w-3/5">
             <div className="flex flex-col space-y-3">
               <em className="flex items-center space-x-2">
                 <span className="flex items-center">

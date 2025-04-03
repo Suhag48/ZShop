@@ -63,7 +63,7 @@ const Category = () => {
         <Separator />
       </CardHeader>
       <CardContent>
-        <ul className="flex flex-col gap-y-4 cursor-pointer">
+        <ul className="flex flex-col gap-y-5 cursor-pointer">
           {/* Men Category */}
           <CategoryDropdown
             type="men"

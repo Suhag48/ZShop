@@ -10,7 +10,7 @@ const Footer = () => {
   const {mode} = useContext(myContext);
 
   return (
-    <footer className="px-4 md:px-12 lg:px-28 bg-gray-100 mt-[30px]" style={{
+    <footer className="px-4 md:px-12 lg:px-28 bg-gray-100" style={{
       backgroundColor: mode === "dark" ? "rgb(40, 44, 52)" : "",
       color: mode === "dark" ? "white" : "",
     }}>

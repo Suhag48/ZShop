@@ -1,7 +1,15 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, db } from "../firebaseAuth/Auth";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -21,7 +29,7 @@ const schema = yup.object().shape({
     .string()
     .required("Name is required")
     .min(4, "Name must be at least 4 characters!")
-    .max(8, "Name must not be longer than 8 characters!"),
+    .max(10, "Name must not be longer than 10 characters!"),
   email: yup
     .string()
     .email("Invalid email format!")
@@ -40,6 +48,9 @@ const schema = yup.object().shape({
 });
 
 const Register = () => {
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
   // Use React Hook Form with Yup schema validation
   const {
     register,
@@ -48,8 +59,46 @@ const Register = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   // Handle form submission
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    // Clear previous errors before submitting new form data
+    setError("");
+
+    try {
+      // Register user with email and password
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+      const user = userCredential.user;
+
+      // Update user profile with the display name
+      await updateProfile(user, {
+        displayName: data.name,
+      });
+
+      // add a document to the users collection in fireStore
+      const usersCollection = collection(db, "users");
+      const userDoc = {
+        name: user.displayName,
+        email: user.email,
+        uid: user.uid,
+        createdAt: new Date(),
+      };
+
+      await addDoc(usersCollection, userDoc);
+
+      // Success message and redirect after a delay
+      toast.success("Registration successful!");
+      setTimeout(() => {
+        navigate("/login");
+      }, 4000);
+    } catch (error) {
+      // Handle different Firebase Authentication errors
+      if (error.code === "auth/email-already-in-use") {
+        setError("email already exists!");
+      }
+    }
   };
 
   return (
@@ -113,6 +162,10 @@ const Register = () => {
                 <p className="text-red-500 text-sm">
                   {errors.confirmPassword.message}
                 </p>
+              )}
+
+              {error && (
+                <p className="text-red-500 text-sm italic ml-2">{error}</p>
               )}
 
               <Button

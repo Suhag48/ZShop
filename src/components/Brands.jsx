@@ -39,7 +39,7 @@ const Brands = () => {
         <RadioGroup
           value={selectedBrand}
           onValueChange={setSelectedBrand}
-          className="flex flex-col space-y-3"
+          className="flex flex-col space-y-4"
         >
           {popularBrands.map((brand, index) => (
             <div key={index} className="flex items-center space-x-2">
